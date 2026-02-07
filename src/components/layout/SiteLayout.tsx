@@ -64,8 +64,13 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
             <div className="justify-self-start md:justify-self-end">
               <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">CONTACT</p>
               <div className="mt-3 grid gap-2 text-sm text-boutique-olive-dark/80">
-                <a className="hover:text-boutique-ink" href="https://instagram.com/vinnysvogue" target="_blank" rel="noreferrer">
-                  Instagram: @vinnysvogue
+                <a
+                  className="hover:text-boutique-ink"
+                  href="https://www.instagram.com/vinnys_vogue_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram: @vinnys_vogue_
                 </a>
                 <a className="hover:text-boutique-ink" href="mailto:contact@vinnysvogue.com">
                   contact@vinnysvogue.com

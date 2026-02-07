@@ -11,13 +11,13 @@ export const ContactSection = () => {
 
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             <a
-              href="https://instagram.com/vinnysvogue"
+              href="https://www.instagram.com/vinnys_vogue_/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="rounded-3xl border border-black/5 bg-white p-6 hover:border-black/10"
             >
               <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">INSTAGRAM</p>
-              <p className="mt-3 text-sm font-semibold text-boutique-ink">@vinnysvogue</p>
+              <p className="mt-3 text-sm font-semibold text-boutique-ink">@vinnys_vogue_</p>
               <p className="mt-1 text-sm text-boutique-olive-dark/80">Follow the editorial.</p>
             </a>
 

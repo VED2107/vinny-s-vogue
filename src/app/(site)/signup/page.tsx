@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { toFriendlyAuthError } from '@/lib/authErrors';
-import { SubmitButton } from '@/components/auth/SubmitButton';
 import { getSiteUrl } from '@/lib/siteUrl';
+import { SignupClient } from '@/components/auth/SignupClient';
 
 export const metadata = {
   title: "Sign up | Vinny’s Vogue",
@@ -126,110 +125,15 @@ export default async function SignupPage({ searchParams }: Props) {
   };
 
   return (
-    <div className="container py-14">
-      <div className="mx-auto max-w-md">
-        <div className="text-center">
-          <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">VINNY’S VOGUE</p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight">Create your account</h1>
-          <p className="mt-2 text-sm text-boutique-olive-dark/80">A minimal, editorial shopping experience.</p>
-        </div>
-
-        <div className="mt-6 flex overflow-hidden rounded-2xl border border-black/10 bg-white">
-          <Link
-            href={`/signup?method=email&next=${encodeURIComponent(next)}`}
-            className={
-              "flex-1 px-4 py-2 text-center text-sm font-semibold " +
-              (method === 'email' ? 'bg-boutique-olive text-white' : 'text-boutique-olive-dark/80 hover:text-boutique-ink')
-            }
-          >
-            Email
-          </Link>
-          <Link
-            href={`/signup?method=phone&next=${encodeURIComponent(next)}`}
-            className={
-              "flex-1 px-4 py-2 text-center text-sm font-semibold " +
-              (method === 'phone' ? 'bg-boutique-olive text-white' : 'text-boutique-olive-dark/80 hover:text-boutique-ink')
-            }
-          >
-            Phone
-          </Link>
-        </div>
-
-        <div className="mt-8 card p-6">
-          {error ? (
-            <div className="mb-4 rounded-xl border border-black/10 bg-boutique-offwhite px-4 py-3 text-sm text-boutique-ink" role="alert">
-              {error}
-            </div>
-          ) : null}
-
-          {method === 'email' ? (
-            <form action={signup} className="grid gap-4">
-              <div className="grid gap-2">
-                <span className="label">Name</span>
-                <input className="input" name="name" type="text" autoComplete="name" />
-              </div>
-
-              <div className="grid gap-2">
-                <span className="label">Email</span>
-                <input className="input" name="email" type="email" required autoComplete="email" />
-              </div>
-
-              <div className="grid gap-2">
-                <span className="label">Password</span>
-                <input
-                  className="input"
-                  name="password"
-                  type="password"
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                />
-              </div>
-
-              <SubmitButton className="btn btn-primary w-full">Create account</SubmitButton>
-            </form>
-          ) : stage === 'verify' ? (
-            <form action={verifyOtp} className="grid gap-4">
-              <input type="hidden" name="phone" value={phone} />
-              <div className="grid gap-2">
-                <span className="label">Phone</span>
-                <input className="input" value={phone} readOnly />
-              </div>
-
-              <div className="grid gap-2">
-                <span className="label">OTP</span>
-                <input className="input" name="token" inputMode="numeric" autoComplete="one-time-code" required />
-              </div>
-
-              <SubmitButton className="btn btn-primary w-full">Verify & continue</SubmitButton>
-
-              <Link
-                href={`/signup?method=phone&next=${encodeURIComponent(next)}`}
-                className="text-center text-sm text-boutique-olive-dark/80 underline underline-offset-4 hover:text-boutique-ink"
-              >
-                Use a different phone
-              </Link>
-            </form>
-          ) : (
-            <form action={requestOtp} className="grid gap-4">
-              <div className="grid gap-2">
-                <span className="label">Phone</span>
-                <input className="input" name="phone" placeholder="+91XXXXXXXXXX" autoComplete="tel" required />
-              </div>
-
-              <SubmitButton className="btn btn-primary w-full">Send OTP</SubmitButton>
-              <p className="text-xs text-boutique-olive-dark/70">We’ll text you a one-time code.</p>
-            </form>
-          )}
-        </div>
-
-        <p className="mt-4 text-center text-sm text-boutique-olive-dark/80">
-          Already have an account?{' '}
-          <Link className="underline underline-offset-4 hover:text-boutique-ink" href={`/login?next=${encodeURIComponent(next)}`}>
-            Login
-          </Link>
-        </p>
-      </div>
-    </div>
+    <SignupClient
+      next={next}
+      error={error}
+      initialMethod={method}
+      initialStage={stage}
+      initialPhone={phone}
+      signupAction={signup}
+      requestOtpAction={requestOtp}
+      verifyOtpAction={verifyOtp}
+    />
   );
 }
