@@ -6,8 +6,8 @@ export const AdminShell = ({ children }: { children: React.ReactNode }) => {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[260px_1fr]">
         <aside className="rounded-2xl border border-white/10 bg-black/30 p-4">
           <div className="mb-4 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#c8a45a]" aria-hidden="true" />
-            <span className="text-xs font-semibold tracking-[0.22em]">STUDIO ADMIN</span>
+            <span className="h-2 w-2 rounded-full bg-boutique-olive" aria-hidden="true" />
+            <span className="text-xs font-semibold tracking-[0.22em]">VINNY’S VOGUE • STUDIO</span>
           </div>
 
           <nav className="grid gap-1 text-sm">

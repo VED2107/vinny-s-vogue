@@ -2,6 +2,18 @@ import { requireAdmin } from '@/lib/auth';
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createProduct, deleteProduct, updateProduct } from './actions';
 
+type AdminProductRow = {
+  id: string;
+  name: string | null;
+  description: string | null;
+  price: number | null;
+  sizes: string[] | null;
+  stock: number | null;
+  images: string[] | null;
+  is_featured: boolean | null;
+  created_at: string | null;
+};
+
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>;
 };
@@ -19,18 +31,20 @@ export default async function AdminProductsPage({ searchParams }: Props) {
     .select('id, name, description, price, sizes, stock, images, is_featured, created_at')
     .order('created_at', { ascending: false });
 
+  const productRows = (products ?? []) as unknown as AdminProductRow[];
+
   return (
     <div>
       <p className="text-xs font-semibold tracking-[0.22em] text-white/60">PRODUCTS</p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Products</h1>
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Vinny’s Vogue • Products</h1>
 
       {ok ? (
-        <div className="mt-6 rounded-xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+        <div className="mt-6 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
           {ok}
         </div>
       ) : null}
       {error ? (
-        <div className="mt-6 rounded-xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-100" role="alert">
+        <div className="mt-6 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80" role="alert">
           {error}
         </div>
       ) : null}
@@ -41,37 +55,37 @@ export default async function AdminProductsPage({ searchParams }: Props) {
           <form action={createProduct} className="mt-4 grid gap-3">
             <div className="grid gap-2">
               <span className="text-xs font-semibold tracking-[0.18em] text-white/60">NAME</span>
-              <input name="name" type="text" required className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-gold" />
+              <input name="name" type="text" required className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-olive" />
             </div>
 
             <div className="grid gap-2">
               <span className="text-xs font-semibold tracking-[0.18em] text-white/60">DESCRIPTION</span>
-              <textarea name="description" rows={3} className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-gold" />
+              <textarea name="description" rows={3} className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-olive" />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-2">
                 <span className="text-xs font-semibold tracking-[0.18em] text-white/60">PRICE</span>
-                <input name="price" type="number" step="0.01" min="0" required className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold" />
+                <input name="price" type="number" step="0.01" min="0" required className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive" />
               </div>
               <div className="grid gap-2">
                 <span className="text-xs font-semibold tracking-[0.18em] text-white/60">STOCK</span>
-                <input name="stock" type="number" step="1" min="0" required className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold" />
+                <input name="stock" type="number" step="1" min="0" required className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive" />
               </div>
             </div>
 
             <div className="grid gap-2">
               <span className="text-xs font-semibold tracking-[0.18em] text-white/60">SIZES</span>
-              <input name="sizes" type="text" placeholder="XS, S, M, L" className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-gold" />
+              <input name="sizes" type="text" placeholder="XS, S, M, L" className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-olive" />
             </div>
 
             <div className="grid gap-2">
               <span className="text-xs font-semibold tracking-[0.18em] text-white/60">IMAGES</span>
-              <input name="images" type="text" placeholder="https://.../1.jpg, https://.../2.jpg" className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-gold" />
+              <input name="images" type="text" placeholder="https://.../1.jpg, https://.../2.jpg" className="input bg-black/20 text-white placeholder:text-white/40 border-white/10 focus:border-boutique-olive" />
             </div>
 
             <label className="flex items-center gap-2 text-sm text-white/80">
-              <input name="is_featured" type="checkbox" className="h-4 w-4 accent-boutique-gold" />
+              <input name="is_featured" type="checkbox" className="h-4 w-4 accent-boutique-olive" />
               Featured
             </label>
 
@@ -85,7 +99,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
           <h2 className="text-sm font-semibold">All products</h2>
 
           <div className="mt-4 grid gap-4">
-            {(products ?? []).map((p: any) => (
+            {productRows.map((p) => (
               <div key={p.id} className="rounded-2xl border border-white/10 bg-black/20 p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
@@ -111,7 +125,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                           type="text"
                           defaultValue={p.name ?? ''}
                           required
-                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                         />
                       </div>
 
@@ -121,7 +135,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                           name="description"
                           rows={3}
                           defaultValue={p.description ?? ''}
-                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                         />
                       </div>
 
@@ -135,7 +149,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                             min="0"
                             defaultValue={String(p.price ?? 0)}
                             required
-                            className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                            className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                           />
                         </div>
                         <div className="grid gap-2">
@@ -147,7 +161,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                             min="0"
                             defaultValue={String(p.stock ?? 0)}
                             required
-                            className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                            className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                           />
                         </div>
                       </div>
@@ -158,7 +172,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                           name="sizes"
                           type="text"
                           defaultValue={Array.isArray(p.sizes) ? p.sizes.join(', ') : ''}
-                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                         />
                       </div>
 
@@ -168,7 +182,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                           name="images"
                           type="text"
                           defaultValue={Array.isArray(p.images) ? p.images.join(', ') : ''}
-                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-gold"
+                          className="input bg-black/20 text-white border-white/10 focus:border-boutique-olive"
                         />
                       </div>
 
@@ -177,7 +191,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                           name="is_featured"
                           type="checkbox"
                           defaultChecked={Boolean(p.is_featured)}
-                          className="h-4 w-4 accent-boutique-gold"
+                          className="h-4 w-4 accent-boutique-olive"
                         />
                         Featured
                       </label>

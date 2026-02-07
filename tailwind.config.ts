@@ -6,11 +6,11 @@ const config: Config = {
     extend: {
       colors: {
         boutique: {
-          cream: '#fbf7f0',
-          sand: '#f1e6d6',
+          offwhite: '#fcfaf6',
+          olive: '#6b7756',
+          'olive-dark': '#4d5a3f',
           ink: '#121212',
           charcoal: '#0f0f10',
-          gold: '#c8a45a',
         },
       },
       boxShadow: {

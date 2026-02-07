@@ -2,6 +2,21 @@ import { requireUser } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { removeCartItem, updateCartItem } from '@/app/cart/actions';
 
+type CartProductRow = {
+  id: string;
+  name: string | null;
+  price: number | null;
+  stock: number | null;
+};
+
+type CartItemRow = {
+  id: string;
+  product_id: string;
+  size: string | null;
+  quantity: number | null;
+  products: CartProductRow | null;
+};
+
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>;
 };
@@ -27,7 +42,7 @@ export default async function CartPage({ searchParams }: Props) {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
-  const normalized = (items ?? []).map((row: any) => {
+  const normalized = ((items ?? []) as unknown as CartItemRow[]).map((row) => {
     const product = row.products ?? null;
     const price = typeof product?.price === 'number' ? product.price : 0;
     const qty = typeof row.quantity === 'number' ? row.quantity : 0;
@@ -54,7 +69,7 @@ export default async function CartPage({ searchParams }: Props) {
       </div>
 
       {error ? (
-        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900" role="alert">
+        <div className="mb-6 rounded-xl border border-black/10 bg-boutique-offwhite px-4 py-3 text-sm text-boutique-ink" role="alert">
           {error}
         </div>
       ) : null}

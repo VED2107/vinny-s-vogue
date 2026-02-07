@@ -1,6 +1,13 @@
 import { requireUser, getCurrentUserRole } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
+type OrderRow = {
+  id: string;
+  status: string | null;
+  total_amount: number | null;
+  created_at: string | null;
+};
+
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>;
 };
@@ -19,6 +26,8 @@ export default async function ProfilePage({ searchParams }: Props) {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
+  const orderRows = (orders ?? []) as unknown as OrderRow[];
+
   return (
     <div className="container py-10">
       <div className="mb-8">
@@ -28,7 +37,7 @@ export default async function ProfilePage({ searchParams }: Props) {
       </div>
 
       {order === 'success' ? (
-        <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <div className="mb-6 rounded-xl border border-black/10 bg-boutique-offwhite px-4 py-3 text-sm text-boutique-olive-dark/90">
           Order placed successfully.
         </div>
       ) : null}
@@ -59,7 +68,7 @@ export default async function ProfilePage({ searchParams }: Props) {
             </div>
           ) : (
             <div className="mt-4 grid gap-4">
-              {orders.map((o: any) => (
+              {orderRows.map((o) => (
                 <div key={o.id} className="card p-6">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>

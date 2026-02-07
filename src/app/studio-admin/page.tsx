@@ -7,8 +7,8 @@ export default async function AdminHomePage() {
   return (
     <div>
       <p className="text-xs font-semibold tracking-[0.22em] text-white/60">DASHBOARD</p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Studio Admin</h1>
-      <p className="mt-2 text-sm text-white/70">Manage products and orders.</p>
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Vinny’s Vogue Studio</h1>
+      <p className="mt-2 text-sm text-white/70">Manage products, inventory, and orders.</p>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         <Link href="/studio-admin/products" className="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10">

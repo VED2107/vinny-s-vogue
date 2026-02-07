@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Boutique",
-  description: "Premium boutique e-commerce",
+  title: "Vinny’s Vogue",
+  description: "Vinny’s Vogue — quiet luxury, editorial essentials.",
 };
 
 export default async function RootLayout({

@@ -9,11 +9,11 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
 
   return (
     <div className="min-h-dvh">
-      <header className="sticky top-0 z-20 border-b border-black/5 bg-[#fbf7f0]/80 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-black/5 bg-boutique-offwhite/80 backdrop-blur">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#c8a45a]" aria-hidden="true" />
-            <span className="text-sm font-semibold tracking-[0.22em]">BOUTIQUE</span>
+            <span className="h-2 w-2 rounded-full bg-boutique-olive" aria-hidden="true" />
+            <span className="text-sm font-semibold tracking-[0.22em]">VINNY’S VOGUE</span>
           </Link>
 
           <nav className="flex items-center gap-4 text-sm">
@@ -50,8 +50,33 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
 
       <main>{children}</main>
 
-      <footer className="border-t border-black/5">
-        <div className="container py-10 text-xs text-black/60">© {new Date().getFullYear()} Boutique</div>
+      <footer className="border-t border-black/5 bg-boutique-offwhite">
+        <div className="container py-12">
+          <div className="grid gap-8 md:grid-cols-2 md:items-start">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">VINNY’S VOGUE</p>
+              <p className="mt-3 max-w-prose text-sm text-boutique-olive-dark/80">
+                Quiet confidence, editorial essentials.
+              </p>
+              <p className="mt-6 text-xs text-boutique-olive-dark/70">© {new Date().getFullYear()} Vinny’s Vogue</p>
+            </div>
+
+            <div className="justify-self-start md:justify-self-end">
+              <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">CONTACT</p>
+              <div className="mt-3 grid gap-2 text-sm text-boutique-olive-dark/80">
+                <a className="hover:text-boutique-ink" href="https://instagram.com/vinnysvogue" target="_blank" rel="noreferrer">
+                  Instagram: @vinnysvogue
+                </a>
+                <a className="hover:text-boutique-ink" href="mailto:contact@vinnysvogue.com">
+                  contact@vinnysvogue.com
+                </a>
+                <a className="hover:text-boutique-ink" href="tel:+91-XXXXXXXXXX">
+                  +91-XXXXXXXXXX
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
+type ProductRow = {
+  id: string;
+  name: string | null;
+  price: number | null;
+};
+
 export default async function CollectionPage() {
   const supabase = await createSupabaseServerClient();
 
@@ -8,6 +14,8 @@ export default async function CollectionPage() {
     .from('products')
     .select('id, name, price')
     .order('created_at', { ascending: false });
+
+  const productRows = (products ?? []) as unknown as ProductRow[];
 
   return (
     <div className="container py-10">
@@ -20,10 +28,10 @@ export default async function CollectionPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {(products ?? []).map((p: any) => (
+        {productRows.map((p) => (
           <Link key={p.id} href={`/product/${p.id}`} className="group">
             <div className="card overflow-hidden">
-              <div className="aspect-[4/5] bg-gradient-to-br from-boutique-sand to-white" />
+              <div className="aspect-[4/5] bg-black/[0.03]" />
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>

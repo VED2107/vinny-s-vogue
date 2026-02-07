@@ -37,7 +37,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
         </div>
 
         <div>
-          <p className="text-xs font-semibold tracking-[0.22em] text-black/50">BOUTIQUE</p>
+          <p className="text-xs font-semibold tracking-[0.22em] text-boutique-olive">VINNY’S VOGUE</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight">{product.name ?? 'Product'}</h1>
 
           {typeof product.price === 'number' ? (
@@ -45,7 +45,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           ) : null}
 
           {added ? (
-            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+            <div className="mt-4 rounded-xl border border-black/10 bg-boutique-offwhite px-4 py-3 text-sm text-boutique-olive-dark/90">
               Added to cart.
             </div>
           ) : null}

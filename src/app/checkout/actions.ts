@@ -22,6 +22,7 @@ export const placeOrder = async () => {
   const supabase = await createSupabaseServerClient();
 
   const { data: orderId, error } = await supabase.rpc('place_order');
+  void orderId;
 
   if (error) {
     redirect(`/checkout?error=${encodeURIComponent(toSafeCheckoutError(error.message))}`);

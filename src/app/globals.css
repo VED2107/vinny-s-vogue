@@ -9,7 +9,7 @@
   }
 
   body {
-    background: #fbf7f0;
+    background: #fcfaf6;
     color: #121212;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,7 +32,7 @@
   }
 
   .card {
-    @apply rounded-2xl border border-black/5 bg-white shadow-soft;
+    @apply rounded-2xl border border-black/5 bg-white;
   }
 
   .btn {
@@ -40,7 +40,7 @@
   }
 
   .btn-primary {
-    @apply bg-black text-white hover:bg-black/90;
+    @apply bg-boutique-olive text-white hover:bg-boutique-olive-dark;
   }
 
   .btn-ghost {
@@ -48,7 +48,7 @@
   }
 
   .input {
-    @apply w-full rounded-xl border border-black/10 bg-white px-3 py-2 text-sm outline-none ring-0 focus:border-black/30;
+    @apply w-full rounded-xl border border-black/10 bg-white px-3 py-2 text-sm outline-none ring-0 focus:border-boutique-olive;
   }
 
   .label {

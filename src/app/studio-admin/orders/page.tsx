@@ -1,6 +1,13 @@
 import { requireAdmin } from '@/lib/auth';
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 
+type AdminOrderRow = {
+  id: string;
+  status: string | null;
+  created_at: string | null;
+  user_id: string | null;
+};
+
 export default async function AdminOrdersPage() {
   await requireAdmin();
 
@@ -10,10 +17,12 @@ export default async function AdminOrdersPage() {
     .select('id, status, created_at, user_id')
     .order('created_at', { ascending: false });
 
+  const orderRows = (orders ?? []) as unknown as AdminOrderRow[];
+
   return (
     <div>
       <p className="text-xs font-semibold tracking-[0.22em] text-white/60">ORDERS</p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Orders</h1>
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight">Vinny’s Vogue • Orders</h1>
 
       <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
         <table className="w-full text-left text-sm">
@@ -26,7 +35,7 @@ export default async function AdminOrdersPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/10">
-            {(orders ?? []).map((o: any) => (
+            {orderRows.map((o) => (
               <tr key={o.id} className="hover:bg-white/5">
                 <td className="px-4 py-3 text-white/90">{String(o.id)}</td>
                 <td className="px-4 py-3">
