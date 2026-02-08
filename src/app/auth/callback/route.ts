@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { ensureProfileRow, getUserRoleById, getPostAuthRedirectPathWithNext } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -33,7 +34,25 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  await supabase.auth.exchangeCodeForSession(code);
+  const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+  if (exchangeError) {
+    return NextResponse.redirect(new URL(`/login?error=${encodeURIComponent('Invalid confirmation link.')}`, request.url));
+  }
 
-  return response;
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
+
+  if (!user) return response;
+
+  await ensureProfileRow(supabase, { id: user.id, email: user.email });
+  const role = await getUserRoleById(supabase, user.id);
+
+  const redirectTo = new URL(getPostAuthRedirectPathWithNext(role, next), request.url);
+  const finalResponse = NextResponse.redirect(redirectTo);
+
+  for (const cookie of response.cookies.getAll()) {
+    finalResponse.cookies.set(cookie);
+  }
+
+  return finalResponse;
 }

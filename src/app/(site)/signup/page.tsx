@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { toFriendlyAuthError } from '@/lib/authErrors';
 import { getSiteUrl } from '@/lib/siteUrl';
 import { SignupClient } from '@/components/auth/SignupClient';
+import { ensureProfileRow, getUserRoleById, getPostAuthRedirectPathWithNext } from '@/lib/auth';
 
 export const metadata = {
   title: "Sign up | Vinny’s Vogue",
@@ -22,7 +23,10 @@ export default async function SignupPage({ searchParams }: Props) {
 
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
-  if (data.user) redirect('/');
+  if (data.user) {
+    const role = await getUserRoleById(supabase, data.user.id);
+    redirect(getPostAuthRedirectPathWithNext(role, next));
+  }
 
   const signup = async (formData: FormData) => {
     'use server';
@@ -53,16 +57,9 @@ export default async function SignupPage({ searchParams }: Props) {
     const session = data.session;
 
     if (user && session) {
-      await supabase.from('profiles').upsert(
-        {
-          id: user.id,
-          email: user.email,
-          role: 'user',
-        },
-        { onConflict: 'id' }
-      );
-
-      redirect(next);
+      await ensureProfileRow(supabase, { id: user.id, email: user.email });
+      const role = await getUserRoleById(supabase, user.id);
+      redirect(getPostAuthRedirectPathWithNext(role, next));
     }
 
     redirect(`/login?checkEmail=1&next=${encodeURIComponent(next)}`);
@@ -111,14 +108,9 @@ export default async function SignupPage({ searchParams }: Props) {
     const user = data.user;
 
     if (user) {
-      await supabase.from('profiles').upsert(
-        {
-          id: user.id,
-          email: user.email,
-          role: 'user',
-        },
-        { onConflict: 'id' }
-      );
+      await ensureProfileRow(supabase, { id: user.id, email: user.email });
+      const role = await getUserRoleById(supabase, user.id);
+      redirect(getPostAuthRedirectPathWithNext(role, next));
     }
 
     redirect(next);

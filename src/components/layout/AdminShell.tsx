@@ -1,13 +1,16 @@
 import Link from 'next/link';
+import { BrandLogo } from '@/components/brand/BrandLogo';
 
 export const AdminShell = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-dvh bg-[#0f0f10] text-white">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[260px_1fr]">
         <aside className="rounded-2xl border border-white/10 bg-black/30 p-4">
-          <div className="mb-4 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-boutique-olive" aria-hidden="true" />
-            <span className="text-xs font-semibold tracking-[0.22em]">VINNY’S VOGUE • STUDIO</span>
+          <div className="mb-4">
+            <div className="inline-flex rounded-xl bg-boutique-offwhite px-3 py-2">
+              <BrandLogo size="sm" variant="icon" />
+            </div>
+            <p className="mt-2 text-xs font-semibold tracking-[0.22em] text-white/70">STUDIO</p>
           </div>
 
           <nav className="grid gap-1 text-sm">

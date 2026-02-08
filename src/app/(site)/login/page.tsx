@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { toFriendlyAuthError } from '@/lib/authErrors';
 import { LoginClient } from '@/components/auth/LoginClient';
+import { ensureProfileRow, getUserRoleById, getPostAuthRedirectPathWithNext } from '@/lib/auth';
 
 export const metadata = {
   title: "Login | Vinny’s Vogue",
@@ -22,7 +23,10 @@ export default async function LoginPage({ searchParams }: Props) {
 
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
-  if (data.user) redirect('/');
+  if (data.user) {
+    const role = await getUserRoleById(supabase, data.user.id);
+    redirect(getPostAuthRedirectPathWithNext(role, next));
+  }
 
   const login = async (formData: FormData) => {
     'use server';
@@ -37,7 +41,16 @@ export default async function LoginPage({ searchParams }: Props) {
       redirect(`/login?next=${encodeURIComponent(next)}&error=${encodeURIComponent(toFriendlyAuthError(error.message))}`);
     }
 
-    redirect(next);
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData.user;
+
+    if (user) {
+      await ensureProfileRow(supabase, { id: user.id, email: user.email });
+      const role = await getUserRoleById(supabase, user.id);
+      redirect(getPostAuthRedirectPathWithNext(role, next));
+    }
+
+    redirect('/');
   };
 
   const requestOtp = async (formData: FormData) => {
@@ -83,17 +96,12 @@ export default async function LoginPage({ searchParams }: Props) {
     const user = data.user;
 
     if (user) {
-      await supabase.from('profiles').upsert(
-        {
-          id: user.id,
-          email: user.email,
-          role: 'user',
-        },
-        { onConflict: 'id' }
-      );
+      await ensureProfileRow(supabase, { id: user.id, email: user.email });
+      const role = await getUserRoleById(supabase, user.id);
+      redirect(getPostAuthRedirectPathWithNext(role, next));
     }
 
-    redirect(next);
+    redirect('/');
   };
 
   return (
