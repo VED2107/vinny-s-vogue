@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { SubmitButton } from '@/components/auth/SubmitButton';
-import { BrandLogo } from '@/components/brand/BrandLogo';
 
 type Method = 'email' | 'phone';
 type Stage = 'enter' | 'verify';
@@ -42,9 +41,6 @@ export const SignupClient = ({
     <div className="container py-14">
       <div className="mx-auto max-w-md">
         <div className="text-center">
-          <div className="mx-auto w-fit">
-            <BrandLogo size="lg" variant="full" showTagline />
-          </div>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight">Create your account</h1>
           <p className="mt-2 text-sm text-boutique-olive-dark/80">A minimal, editorial shopping experience.</p>
         </div>

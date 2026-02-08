@@ -8,7 +8,7 @@ export const AdminShell = ({ children }: { children: React.ReactNode }) => {
         <aside className="rounded-2xl border border-white/10 bg-black/30 p-4">
           <div className="mb-4">
             <div className="inline-flex rounded-xl bg-boutique-offwhite px-3 py-2">
-              <BrandLogo size="sm" variant="icon" />
+              <BrandLogo size="xs" />
             </div>
             <p className="mt-2 text-xs font-semibold tracking-[0.22em] text-white/70">STUDIO</p>
           </div>

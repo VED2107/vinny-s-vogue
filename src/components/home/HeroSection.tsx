@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { BrandLogo } from '@/components/brand/BrandLogo';
 
 export const HeroSection = ({
   userEmail,
@@ -13,9 +12,6 @@ export const HeroSection = ({
       <div className="container py-16 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
           <div>
-            <div className="w-fit">
-              <BrandLogo size="lg" variant="full" showTagline />
-            </div>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-boutique-ink md:text-6xl">
               Quiet confidence.
             </h1>

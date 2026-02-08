@@ -13,7 +13,7 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
       <header className="sticky top-0 z-20 border-b border-black/5 bg-boutique-offwhite/80 backdrop-blur">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center">
-            <BrandLogo size="sm" variant="full" />
+            <BrandLogo size="sm" priority />
           </Link>
 
           <nav className="flex items-center gap-4 text-sm">
@@ -54,7 +54,7 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
         <div className="container py-12">
           <div className="grid gap-8 md:grid-cols-2 md:items-start">
             <div>
-              <BrandLogo size="md" variant="full" showTagline />
+              <BrandLogo size="sm" />
               <p className="mt-3 max-w-prose text-sm text-boutique-olive-dark/80">
                 Quiet confidence, editorial essentials.
               </p>
