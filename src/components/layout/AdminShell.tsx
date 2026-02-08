@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { BrandLogo } from '@/components/brand/BrandLogo';
 
 export const AdminShell = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -7,10 +6,7 @@ export const AdminShell = ({ children }: { children: React.ReactNode }) => {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[260px_1fr]">
         <aside className="rounded-2xl border border-white/10 bg-black/30 p-4">
           <div className="mb-4">
-            <div className="inline-flex rounded-xl bg-boutique-offwhite px-3 py-2">
-              <BrandLogo size="xs" />
-            </div>
-            <p className="mt-2 text-xs font-semibold tracking-[0.22em] text-white/70">STUDIO</p>
+            <p className="font-serif text-sm tracking-wide text-white/90">Vinny’s Vogue — Admin</p>
           </div>
 
           <nav className="grid gap-1 text-sm">

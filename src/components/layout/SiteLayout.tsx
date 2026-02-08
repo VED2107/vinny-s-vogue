@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { logout } from '@/app/actions/auth';
-import { BrandLogo } from '@/components/brand/BrandLogo';
 
 export const SiteLayout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = await createSupabaseServerClient();
@@ -12,8 +11,8 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-black/5 bg-boutique-offwhite/80 backdrop-blur">
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <BrandLogo size="sm" priority />
+          <Link href="/" className="flex items-center font-serif text-sm tracking-wide text-boutique-ink/90">
+            Vinny’s Vogue
           </Link>
 
           <nav className="flex items-center gap-4 text-sm">
@@ -54,7 +53,7 @@ export const SiteLayout = async ({ children }: { children: React.ReactNode }) =>
         <div className="container py-12">
           <div className="grid gap-8 md:grid-cols-2 md:items-start">
             <div>
-              <BrandLogo size="sm" />
+              <p className="font-serif text-sm tracking-wide text-boutique-ink/90">Vinny’s Vogue</p>
               <p className="mt-3 max-w-prose text-sm text-boutique-olive-dark/80">
                 Quiet confidence, editorial essentials.
               </p>

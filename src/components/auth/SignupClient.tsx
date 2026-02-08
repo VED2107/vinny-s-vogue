@@ -41,6 +41,7 @@ export const SignupClient = ({
     <div className="container py-14">
       <div className="mx-auto max-w-md">
         <div className="text-center">
+          <p className="font-serif text-xl tracking-wide text-boutique-ink/90">Vinny’s Vogue</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight">Create your account</h1>
           <p className="mt-2 text-sm text-boutique-olive-dark/80">A minimal, editorial shopping experience.</p>
         </div>

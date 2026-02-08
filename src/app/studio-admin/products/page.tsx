@@ -205,7 +205,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
 
                     <form action={deleteProduct}>
                       <input type="hidden" name="id" value={p.id} />
-                      <button type="submit" className="btn btn-ghost border-white/10 text-white hover:bg-white/10">
+                      <button type="submit" className="btn btn-ghost btn-destructive border-white/10 text-white hover:bg-white/10">
                         Delete
                       </button>
                     </form>

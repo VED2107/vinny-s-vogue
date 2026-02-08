@@ -114,7 +114,7 @@ export default async function CartPage({ searchParams }: Props) {
 
                 <form action={removeCartItem}>
                   <input type="hidden" name="cart_item_id" value={item.id} />
-                  <button type="submit" className="btn btn-ghost">
+                  <button type="submit" className="btn btn-ghost btn-destructive">
                     Remove
                   </button>
                 </form>

@@ -36,15 +36,71 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition;
+    @apply relative inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-boutique-olive/40 focus-visible:ring-offset-2 focus-visible:ring-offset-boutique-offwhite;
+    overflow: hidden;
+  }
+
+  .btn-glass {
+    @apply transition-colors;
+  }
+
+  .btn-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: opacity 280ms ease-out, transform 320ms ease-out;
+    background: linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.08) 30%,
+      rgba(255, 255, 255, 0.18) 50%,
+      rgba(255, 255, 255, 0.08) 70%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .btn-glass::before {
+      -webkit-backdrop-filter: blur(1px);
+      backdrop-filter: blur(1px);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-glass:hover::before {
+      opacity: 1;
+      transform: translateX(120%);
+    }
+
+    .btn-glass:hover {
+      filter: brightness(1.02);
+    }
+  }
+
+  .btn-glass:active {
+    transform: translateY(0.5px);
+    filter: brightness(0.99);
+  }
+
+  .btn-destructive {
+    overflow: visible;
+  }
+
+  .btn-destructive::before {
+    content: none;
   }
 
   .btn-primary {
-    @apply bg-boutique-olive text-white hover:bg-boutique-olive-dark;
+    @apply btn-glass bg-boutique-olive text-white hover:bg-boutique-olive-dark;
   }
 
   .btn-ghost {
-    @apply border border-black/10 bg-transparent hover:bg-black/5;
+    @apply btn-glass border border-black/10 bg-transparent hover:bg-black/5;
   }
 
   .input {
