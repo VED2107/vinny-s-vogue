@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { SubmitButton } from '@/components/auth/SubmitButton';
+import { GoogleOAuthButton } from '@/components/auth/GoogleOAuthButton';
 
 type Method = 'email' | 'phone';
 type Stage = 'enter' | 'verify';
@@ -74,6 +75,10 @@ export const LoginClient = ({
         </div>
 
         <div className="mt-8 card p-6">
+          <GoogleOAuthButton next={next} />
+
+          <div className="my-4 h-px bg-black/10" />
+
           {checkEmail ? (
             <div className="mb-4 rounded-xl border border-black/10 bg-boutique-offwhite px-4 py-3 text-sm text-boutique-olive-dark/90">
               Please check your email to confirm your account, then log in.
